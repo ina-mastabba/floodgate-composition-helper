@@ -1,0 +1,37 @@
+@mixin absolutely-centered-horizontally-and-vertically{
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+
+}
+
+@mixin absolutely-centered-horizontally{
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+
+}
+
+@mixin absolutely-centered-vertically{
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+
+}
+
+@mixin generic-box-shadow{
+    box-shadow: 0 3px 3px 0 rgba(49,45,41,0.24),
+    0 2px 6px 0 rgba(49,45,41,0.22),
+    0 4px 2px -1px rgba(49,45,41,0.3);
+
+}

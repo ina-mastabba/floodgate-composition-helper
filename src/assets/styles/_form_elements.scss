@@ -1,0 +1,52 @@
+
+.basic-select-box-outer-wrapper{
+    border: 3px solid #283E4B;
+    border-radius: 6px;
+    width: 279px;
+    margin: 0 auto 20px auto;
+    transition: 0.4s;
+    cursor: pointer;
+
+    .basic-select-box-title-row{
+        position: relative;
+        background-color: #283e4b;
+        width: 100%;
+        height: 45px;
+        margin: 0;
+        padding: 0;
+       
+        .basic-select-box-title-row-header{ // h3
+            position: absolute;
+            @include absolutely-centered-vertically;
+            left: 10px;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+
+        }
+
+        &.has-dropdown{
+
+            .basic-select-box-title-row-caret, .basic-select-box-title-row-caret-down{
+                position: absolute;
+                @include absolutely-centered-vertically;
+                right: 10px;
+                width: 15px;
+
+            } 
+
+        }
+
+    }
+
+    .basic-select-box-options-section-placeholder{
+        width: 100%;
+        height: 200px;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+
+    }
+
+
+}
