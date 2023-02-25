@@ -1,11 +1,11 @@
-
+// ALL SELECT BOXES
 .basic-select-box-outer-wrapper{
     border: 3px solid #283E4B;
     border-radius: 6px;
     width: 279px;
     margin: 0 auto 20px auto;
     transition: 0.4s;
-    cursor: pointer;
+    
 
     .basic-select-box-title-row{
         position: relative;
@@ -25,7 +25,9 @@
 
         }
 
+        // IF DROPDOWN PLACE CARET
         &.has-dropdown{
+            cursor: pointer;
 
             .basic-select-box-title-row-caret, .basic-select-box-title-row-caret-down{
                 position: absolute;
@@ -33,20 +35,380 @@
                 right: 10px;
                 width: 15px;
 
+                &.dropped{
+                    top: 55%;
+                    @include rotate-one-hundred-eighty-degrees;
+
+                }
+
             } 
 
         }
 
     }
 
-    .basic-select-box-options-section-placeholder{
+    .basic-select-box-options-section{
         width: 100%;
         height: 200px;
         background-color: transparent;
+        font-family: 'Montserrat', sans-serif;
         margin: 0;
         padding: 0;
+        color: #1e2f38;
+        cursor: pointer;
+        overflow: scroll;
+
+        &.has-dropdown{
+            height: 0;
+            transition: height .5s linear;
+
+            .add-item-row{
+                width: 100%;
+                height: 0;
+                color: #3C5E71;
+                transition: height .75s linear;
+
+                &.hovered{
+                    background-color: #c1d7e4;
+                }
+    
+                .add-item-row-col-1{
+                    display: inline-block; 
+                    width: 78%; 
+                    height: 0;
+    
+                    .add-item-row-col-1-text{
+                        margin: 0 0 0 10px;
+                        line-height: 40px;
+                        font-size: 0;
+                        opacity: 0;
+                        transition: font-size .75s linear, opacity .25s linear;
+
+                    }  
+    
+                }
+    
+                .add-item-row-col-2{
+                    display: inline-block;
+                    width: 20%;   
+                    height: 0;
+                    text-align: center;
+    
+                    .add-item-icon{
+                        font-weight: bold;
+                        line-height: 40px;
+                        font-size: 0;
+                        opacity: 0;
+                        transition: font-size .75s linear, opacity .25s linear;
+                        margin: 0;
+    
+                    }
+    
+                }
+    
+            }
+
+            .options-row-has-del-item-button, .options-row-has-edit-item-button{
+                width: 100%;
+                height: 0;
+                border-top: 0px solid #1e2f38;
+                transition: height .75s linear, border-top .45s linear;
+                white-space: nowrap;
+
+                // &.hovered{
+                //     background-color: #c1d7e4;
+                // }
+                
+                
+                .options-row-col-1{
+                    display: inline-block; 
+                    width: 78%; 
+                    height: 0;
+    
+                    .options-row-col-1-text{
+                        margin: 0 0 0 10px;
+                        line-height: 40px;
+                        font-size: 0;
+                        opacity: 0;
+                        transition: font-size .75s linear, pacity .25s linear;
+
+                    }  
+    
+                }
+    
+                .options-row-col-2{
+                    display: inline-block;
+                    width: 22%;   
+                    height: 0;
+                    text-align: center;
+                    border-left: 1px solid #1e2f38;
+    
+                    .delete-item-icon, .edit-item-icon{
+                        font-weight: bold;
+                        line-height: 40px;
+                        font-size: 0;
+                        opacity: 0;
+                        transition: font-size .75s linear, opacity .25s linear;
+                        margin: 0;
+    
+                    }
+    
+                }
+    
+            }
+
+            .options-row-single-col{
+                width: 100%;
+                height: 0;
+                border-top: 0px solid #1e2f38;
+                transition: height .75s linear, border-top .75s linear;
+
+                &.hovered{
+                    background-color: #c1d7e4;
+                }
+                
+
+                .options-row-single-col-text{
+                    margin: 0 0 0 10px;
+                    line-height: 40px;
+                    font-size: 0;
+                    opacity: 0;
+                    transition: font-size .75s linear, opacity .25s linear;
+
+                }
+            }
+
+            &.dropped{
+                height: 200px;
+
+                .add-item-row{
+                    width: 100%;
+                    height: 40px;
+                    color: #3C5E71;
+        
+                    .add-item-row-col-1{
+                        display: inline-block; 
+                        width: 78%; 
+                        height: 100%;
+        
+                        .add-item-row-col-1-text{
+                            margin: 0 0 0 10px;
+                            line-height: 40px;
+                            font-size: 16px;
+                            opacity: 1;
+        
+                        }  
+        
+                    }
+        
+                    .add-item-row-col-2{
+                        display: inline-block;
+                        width: 20%;   
+                        height: 100%;
+                        text-align: center;
+        
+                        .add-item-icon{
+                            font-weight: bold;
+                            line-height: 40px;
+                            margin: 0;
+                            font-size: 16px;
+                            opacity: 1;
+        
+                        }
+        
+                    }
+        
+                }
+
+                .options-row-has-del-item-button, .options-row-has-edit-item-button{
+                    width: 100%;
+                    height: 40px;
+                    border-top: 1px solid #1e2f38;
+                    white-space: nowrap;
+        
+                    .options-row-col-1{
+                        display: inline-block; 
+                        width: 78%; 
+                        height: 100%;
+
+                        &.hovered{
+                            background-color: #c1d7e4;
+                        }
+        
+                        .options-row-col-1-text{
+                            margin: 0 0 0 10px;
+                            line-height: 40px;
+                            font-size: 16px;
+                            opacity: 1;
+        
+                        }  
+        
+                    }
+        
+                    .options-row-col-2{
+                        display: inline-block;
+                        width: 22%;   
+                        height: 100%;
+                        text-align: center;
+                        border-left: 1px solid #1e2f38;
+
+                            &.hovered{
+                                background-color: #c1d7e4;
+                            }
+        
+                        .delete-item-icon, .edit-item-icon{
+                            font-weight: bold;
+                            line-height: 40px;
+                            margin: 0;
+                            font-size: 16px;
+                            opacity: 1;
+
+                            .edit-icon{
+                                width: 20px;
+                                
+                            }
+        
+                        }
+        
+                    }
+        
+                }
+
+                .options-row-single-col{
+                    width: 100%;
+                    height: 40px;
+                    border-top: 1px solid #1e2f38;
+                    
+                    .options-row-single-col-text{
+                        margin: 0 0 0 10px;
+                        line-height: 40px;
+                        font-size: 16px;
+                        opacity: 1;
+    
+                    }
+
+                }
+                
+            }
+
+        }
+
+        &.no-dropdown{
+
+            .add-item-row{
+                width: 100%;
+                height: 40px;
+                color: #3C5E71;
+
+                &.hovered{
+                    background-color: #c1d7e4;
+                }
+    
+                .add-item-row-col-1{
+                    display: inline-block; 
+                    width: 78%; 
+                    height: 100%;
+    
+                    .add-item-row-col-1-text{
+                        margin: 0 0 0 10px;
+                        line-height: 40px;
+    
+    
+                        
+    
+                    }  
+    
+                }
+    
+                .add-item-row-col-2{
+                    display: inline-block;
+                    width: 20%;   
+                    height: 100%;
+                    text-align: center;
+    
+                    .add-item-icon{
+                        font-weight: bold;
+                        line-height: 40px;
+                        margin: 0;
+    
+                    }
+    
+                }
+    
+            }
+
+            .options-row-has-del-item-button, .options-row-has-edit-item-button{
+                width: 100%;
+                height: 40px;
+                border-top: 1px solid #1e2f38;
+                white-space: nowrap;
+                // &.hovered{
+                //     background-color: #c1d7e4;
+                // } 
+    
+                .options-row-col-1{
+                    display: inline-block; 
+                    width: 78%; 
+                    height: 100%;
+
+                    &.hovered{
+                        background-color: #c1d7e4;
+                    }
+    
+                    .options-row-col-1-text{
+                        margin: 0 0 0 10px;
+                        line-height: 40px;
+    
+                    }  
+    
+                }
+    
+                .options-row-col-2{
+                    display: inline-block;
+                    width: 22%;   
+                    height: 100%;
+                    text-align: center;
+                    border-left: 1px solid #1e2f38;
+
+                    &.hovered{
+                        background-color: #c1d7e4;
+                    }
+    
+                    .delete-item-icon, .edit-item-icon{
+                        font-weight: bold;
+                        line-height: 40px;
+                        margin: 0;
+
+                        .edit-icon{
+                            width: 20px;
+                            
+                        }
+    
+                    }
+    
+                }
+    
+            }
+
+            .options-row-single-col{
+                width: 100%;
+                height: 40px;
+                border-top: 1px solid #1e2f38;
+                &.hovered{
+                    background-color: #c1d7e4;
+                }
+                
+                .options-row-single-col-text{
+                    margin: 0 0 0 10px;
+                    line-height: 40px;
+                    font-size: 16px;
+
+                }
+
+            }
+
+        }
 
     }
-
 
 }

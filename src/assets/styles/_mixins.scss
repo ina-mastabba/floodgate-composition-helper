@@ -35,3 +35,17 @@
     0 4px 2px -1px rgba(49,45,41,0.3);
 
 }
+
+@mixin rotate-one-hundred-eighty-degrees{
+    transform-origin: top center;
+    -webkit-transform-origin: top center;
+    -moz-transform-origin: top center;
+    -ms-transform-origin: top center;
+    -o-transform-origin: top center;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+
+}
