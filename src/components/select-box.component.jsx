@@ -21,10 +21,10 @@ class SelectBox extends Component {
     // ADD ITEM ROW FUNCTIONALITY - done
     // ROWS WITH DELETE ITEM BUTTON - done
     // ROWS WITHOUT DELETE ITEM BUTTON - done
-    // PASS SINGLE VALUE
-    // PASS MULTIPLE VALUE
+    // PASS SINGLE VALUE -done
+    // PASS MULTIPLE VALUE - if multiple-values-acceptabe = true... (make it another arg in the click handler) - done
     // HOVER FOR NON-TOUCH DEVICES - done
-    // SELECTED BACKGROUND COLOR 
+    // SELECTED BACKGROUND COLOR -done
     // CARROT MOVEMENT FOR DROPDOWNS -done
     
     // SUBMIT BUTTON
@@ -36,12 +36,11 @@ class SelectBox extends Component {
 
     componentDidUpdate(){
         // console.log(`component did update\n`);
-        // console.log(`this.props.selectBoxHoverStates from cdu => ${this.props.selectBoxHoverStates}`);
     }
-
 
 	render(){
         console.log(`this.props.selectBoxHoverStates from render => ${this.props.selectBoxHoverStates}\n`);
+        
 		return(
 
 			<div className='basic-select-box-outer-wrapper'>
@@ -68,7 +67,12 @@ class SelectBox extends Component {
                         <div    id='add-item-option-row'
                                 data={`${this.props.selectBoxObject['select-box-id']}add-item-option-row`}
                                 className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}add-item-option-row`) === true ? 'add-item-row hovered' : 'add-item-row'}
-                                onClick={(e)=>{this.props.selectBoxObject['has-add-item-row-text-and-callback'][1]()}}
+                                onClick={
+                                    (e)=>{
+                                        this.props.selectBoxObject['has-add-item-row-text-and-callback'][1](); 
+                                        this.props.selectBoxClick([e, this.props.selectBoxObject['select-box-id'],this.props.selectBoxObject['multiple-values-acceptable']]);
+                                    }
+                                }
                                 onMouseEnter={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                                 onMouseLeave={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                         >
@@ -92,11 +96,16 @@ class SelectBox extends Component {
                         >
                             <div 
                                 id={`options-row-option-col-1-${index}`} 
-                                className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 hovered' : 'options-row-col-1 false' }
+                                className={
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 selected' :
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === false && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 selected' : 
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === false ? 'options-row-col-1 hovered' :
+                                    'options-row-col-1 false'
+                                }
                                 onMouseEnter={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                                 onMouseLeave={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
-                                onClick={()=>{
-
+                                onClick={(e)=>{
+                                    this.props.selectBoxClick([e, this.props.selectBoxObject['select-box-id'],this.props.selectBoxObject['multiple-values-acceptable']]);
                                 }}
                             >
                                 <p  className='options-row-col-1-text'>{option[0]}</p>
@@ -106,8 +115,9 @@ class SelectBox extends Component {
                                 className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-2-${index}`) === true ? 'options-row-col-2 hovered' : 'options-row-col-2 false' }
                                 onMouseEnter={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                                 onMouseLeave={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
-                                onClick={()=>{
-
+                                onClick={(e)=>{
+                                    e.stopPropagation();
+                                    this.props.selectBoxObject['options-rows-delete-item-callback'](this.props.selectBoxObject['options-array'][index]);
                                 }}
                             >
                                 <span className='delete-item-icon' onClick={()=>{this.props.selectBoxObject['options-rows-delete-item-callback'](option[1])}}>&#10134;</span>
@@ -125,14 +135,23 @@ class SelectBox extends Component {
                         >
                             <div 
                                 id={`options-row-option-col-1-${index}`}
-                                className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 hovered' : 'options-row-col-1 false' }
+                                // className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 hovered' : 'options-row-col-1 false' }
+                                className={
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 selected' :
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === false && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true ? 'options-row-col-1 selected' : 
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === true && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-1-${index}`) === false ? 'options-row-col-1 hovered' :
+                                    'options-row-col-1 false'
+                                }
                                 onMouseEnter={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                                 onMouseLeave={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
+                                onClick={(e)=>{
+                                    this.props.selectBoxClick([e, this.props.selectBoxObject['select-box-id'],this.props.selectBoxObject['multiple-values-acceptable']]);
+                                }}
                             >
                                 <p  className='options-row-col-1-text'
-                                    onClick={()=>{
+                                    // onClick={()=>{
 
-                                    }}
+                                    // }}
                                 >{option[0]}</p>
                             </div>
                             <div 
@@ -140,18 +159,34 @@ class SelectBox extends Component {
                                 className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-col-2-${index}`) === true ? 'options-row-col-2 hovered' : 'options-row-col-2 false' }
                                 onMouseEnter={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                                 onMouseLeave={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
+                                onClick={(e)=>{
+                                    e.stopPropagation();
+                                    this.props.selectBoxObject['options-rows-edit-item-callback'](this.props.selectBoxObject['options-array'][index]);
+                                }}
                             >
-                                <span className='edit-item-icon' onClick={()=>{this.props.selectBoxObject['options-rows-edit-item-callback'](option[1])}}><img className='edit-icon' alt='Edit icon.' src={this.editIcon}/></span>
+                                <span className='edit-item-icon'>
+                                    <img className='edit-icon' alt='Edit icon.' src={this.editIcon}/>
+                                </span>
                             </div>
                         </div>
                     ))
                 : 
                     this.props.selectBoxObject['options-array'].map((option, index)=>(
-                        <div    className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}${`options-row-option-${index}`}`) === true ? 'options-row-single-col hovered' : 'options-row-single-col' }
+                        <div    
+                                // className={this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}${`options-row-option-${index}`}`) === true ? 'options-row-single-col hovered' : 'options-row-single-col' }
+                                className={
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-${index}`) === true && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-${index}`) === true ? 'options-row-single-col selected' :
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-${index}`) === false && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-${index}`) === true ? 'options-row-single-col selected' : 
+                                    this.props.selectBoxHoverStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-${index}`) === true && this.props.selectBoxClickStates.includes(`${this.props.selectBoxObject['select-box-id']}options-row-option-${index}`) === false ? 'options-row-single-col hovered' :
+                                    'options-row-single-col false'
+                                }
                                 id={`options-row-option-${index}`} 
                                 key={index}
                                 onMouseEnter={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
                                 onMouseLeave={(e)=>{this.props.selectBoxHover([e, this.props.selectBoxObject['select-box-id']])}}
+                                onClick={(e)=>{
+                                    this.props.selectBoxClick([e, this.props.selectBoxObject['select-box-id'],this.props.selectBoxObject['multiple-values-acceptable']]);
+                                }}
                         >
                             <p className='options-row-single-col-text'>{option[0]}</p>
                         </div>

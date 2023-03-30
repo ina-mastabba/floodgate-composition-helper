@@ -10,6 +10,8 @@ class TempPage extends Component {
 			<div>
                 
                 <SelectBox 
+                    selectBoxClick = {this.props.selectBoxClick}
+                    selectBoxClickStates = {this.props.selectBoxClickStates}
                     selectBoxDropdownStates = {this.props.applicationState.selectBoxDropdownStates}
                     selectBoxHover = {this.props.selectBoxHover}
                     selectBoxHoverStates = {this.props.selectBoxHoverStates}
@@ -32,7 +34,8 @@ class TempPage extends Component {
                     
                 />
                 <SelectBox 
-                    
+                    selectBoxClick = {this.props.selectBoxClick}
+                    selectBoxClickStates = {this.props.selectBoxClickStates}
                     selectBoxHover = {this.props.selectBoxHover}
                     selectBoxHoverStates = {this.props.selectBoxHoverStates}
                     selectBoxObject = { 
@@ -52,6 +55,8 @@ class TempPage extends Component {
 
                 />
                 <SelectBox 
+                    selectBoxClick = {this.props.selectBoxClick}
+                    selectBoxClickStates = {this.props.selectBoxClickStates}
                     selectBoxDropdownStates = {this.props.applicationState.selectBoxDropdownStates}   
                     selectBoxHover = {this.props.selectBoxHover}
                     selectBoxHoverStates = {this.props.selectBoxHoverStates}
@@ -74,7 +79,8 @@ class TempPage extends Component {
 
                 />
                 <SelectBox 
-                    
+                    selectBoxClick = {this.props.selectBoxClick}
+                    selectBoxClickStates = {this.props.selectBoxClickStates}
                     selectBoxHover = {this.props.selectBoxHover}
                     selectBoxHoverStates = {this.props.selectBoxHoverStates}
                     selectBoxObject = { 

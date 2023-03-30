@@ -11,7 +11,9 @@ class App extends Component {
     // STATE OBJECT
     this.state ={
       
+      activeSelectBoxes: [],
       hasTouchScreen: this._detectTouchDevice(),
+      selectBoxClickStates: [],
       selectBoxDropdownStates: [],
       selectBoxHoverStates: [],
       
@@ -20,6 +22,7 @@ class App extends Component {
     // BIND METHODS
     this._addComposition = this._addComposition.bind(this);
     this._detectTouchDevice = this._detectTouchDevice.bind(this);
+    this._selectBoxClick = this._selectBoxClick.bind(this);
     this._selectBoxDeleteItem = this._selectBoxDeleteItem.bind(this);
     this._selectBoxEditItem = this._selectBoxEditItem.bind(this);
     this._selectBoxHover = this._selectBoxHover.bind(this);
@@ -33,23 +36,85 @@ class App extends Component {
 
   _detectTouchDevice(){
 
-// You can check if a device HAS MOUSE POINTER using the method:
-// const hasCursor = window.matchMedia('(pointer:fine)').matches
-// laptops with both a touchscreen and a touchpad will not match this 
+    // You can check if a device HAS MOUSE POINTER using the method:
+    // const hasCursor = window.matchMedia('(pointer:fine)').matches
+    // laptops with both a touchscreen and a touchpad will not match this 
 
-      console.log(`\n_detectTouchDevice() executing\n`);
+    console.log(`\n_detectTouchDevice() executing\n`);
 
-      // const hasCursor = window.matchMedia('(pointer:fine)').matches;
-      // console.log(`window.matchMedia('(pointer:fine)').matches => ${hasCursor}`);
+    // const hasCursor = window.matchMedia('(pointer:fine)').matches;
+    // console.log(`window.matchMedia('(pointer:fine)').matches => ${hasCursor}`);
 
-      try {  
-          document.createEvent("TouchEvent"); 
-          console.log('touch device\n');
-          return true;  
-      } catch (e) {  
-          // console.log('not a touch device\n');
-          return false;  
-      } 
+    try {  
+        document.createEvent("TouchEvent"); 
+        console.log('touch device\n');
+        return true;  
+    } catch (e) {  
+        // console.log('not a touch device\n');
+        return false;  
+    } 
+  }
+
+  _selectBoxClick(input){
+    let targetId = input[0].currentTarget.id;
+    // id={`options-row-option-${index}`}
+    // this.props.selectBoxClick([e, this.props.selectBoxObject['select-box-id'],this.props.selectBoxObject['multiple-values-acceptable']]);
+   
+    // if selectBoxClickStates already includes this selectBox option row combo, deselect it
+    if( this.state.selectBoxClickStates.includes(`${input[1]}${targetId}`) ){
+
+      let indexOfInput = this.state.selectBoxClickStates.indexOf(`${input[1]}${input[0].currentTarget.id}`);
+
+      this.setState(
+        (oldState)=>{
+          const newSelectBoxClickStates = [...oldState.selectBoxClickStates];
+          newSelectBoxClickStates.splice(indexOfInput, 1);
+          return {selectBoxClickStates: newSelectBoxClickStates};
+        }, ()=>{console.log(`this.state.selectBoxClickStates => ${this.state.selectBoxClickStates}`)}
+      );
+
+    // if selectBoxClickStates does not include this selectBox option row combo && multiple-values-acceptable === true, select it
+    } else if( !this.state.selectBoxClickStates.includes(`${input[1]}${targetId}`) && input[2] === true ){
+
+      this.setState(
+        (oldState)=>{
+          const newSelectBoxClickStates = [...oldState.selectBoxClickStates];
+          newSelectBoxClickStates.push(`${input[1]}${targetId}`);
+          return {selectBoxClickStates: newSelectBoxClickStates};
+        }, ()=>{console.log(`this.state.selectBoxClickStates => ${this.state.selectBoxClickStates}`);}
+      ); 
+    
+    // if selectBoxClickStates does not include this selectBox option row combo && multiple-values-acceptable === false, select it and deselect any other rows from this select box
+    } else if( !this.state.selectBoxClickStates.includes(`${input[1]}${targetId}`) && input[2] === false ){
+
+      // get index of any other option row from this select box
+      // remove them
+      for(let x = 0; x < this.state.selectBoxClickStates.length; x++){
+
+        if( this.state.selectBoxClickStates[x].includes(`${input[1]}`) ){
+
+          this.setState(
+            (oldState)=>{
+              const newSelectBoxClickStates = [...oldState.selectBoxClickStates];
+              newSelectBoxClickStates.splice(x, 1);
+              return {selectBoxClickStates: newSelectBoxClickStates};
+            }, ()=>{console.log(`this.state.selectBoxClickStates => ${this.state.selectBoxClickStates}`)}
+          );
+
+        }
+
+      }
+
+      this.setState(
+        (oldState)=>{
+          const newSelectBoxClickStates = [...oldState.selectBoxClickStates];
+          newSelectBoxClickStates.push(`${input[1]}${targetId}`);
+          return {selectBoxClickStates: newSelectBoxClickStates};
+        }, ()=>{console.log(`this.state.selectBoxClickStates => ${this.state.selectBoxClickStates}`);}
+      ); 
+
+    } 
+  
   }
 
   _selectBoxDeleteItem(input){
@@ -75,7 +140,7 @@ class App extends Component {
           console.log(`${targetId}`);
           newSelectBoxHoverStates.push(`${input[1]}${targetId}`);
           return {selectBoxHoverStates: newSelectBoxHoverStates};
-        }, ()=>{console.log(`this.state.selectBoxHoverStates => ${this.state.selectBoxHoverStates}`)}
+        }, ()=>{console.log(`this.state.selectBoxHoverStates => ${this.state.selectBoxHoverStates}`);}
       );  
 
     } else if(this.state.hasTouchScreen === false && input[0].type === 'mouseleave'){
@@ -89,7 +154,7 @@ class App extends Component {
             const newSelectBoxHoverStates = [...oldState.selectBoxHoverStates];
             newSelectBoxHoverStates.splice(indexOfInput, 1);
             return {selectBoxHoverStates: newSelectBoxHoverStates};
-          }, ()=>{console.log(`this.state.selectBoxHoverStates => ${this.state.selectBoxHoverStates}`)}
+          }, ()=>{console.log(`this.state.selectBoxHoverStates => ${this.state.selectBoxHoverStates}`);}
         );
   
       }
@@ -135,6 +200,8 @@ class App extends Component {
           toggleSelectBoxDropdown = {this._toggleSelectBoxDropdown}
           applicationState = {this.state}
           addComposition = {this._addComposition}
+          selectBoxClick = {this._selectBoxClick}
+          selectBoxClickStates = {this.state.selectBoxClickStates}
           selectBoxDeleteItem = {this._selectBoxDeleteItem}
           selectBoxEditItem = {this._selectBoxEditItem}
           selectBoxHover = {this._selectBoxHover}
